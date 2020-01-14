@@ -5,7 +5,6 @@ import com.example.biller.repos.BillerRepository;
 import com.example.biller.service.BillerService;
 import com.example.util.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
