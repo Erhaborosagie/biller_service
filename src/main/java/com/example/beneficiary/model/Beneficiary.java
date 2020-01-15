@@ -1,13 +1,17 @@
 package com.example.beneficiary.model;
 
 import com.example.beneficiary.enums.BeneficiaryType;
+import com.example.biller.Biller;
 import com.example.util.enums.EnabledStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Upperlink Digital PC on 14/01/2020.
@@ -52,6 +56,15 @@ public class Beneficiary {
 
     @NotNull
     private BeneficiaryType type = BeneficiaryType.REGULAR;
+
+    @JsonBackReference
+    @ManyToMany
+    @JoinTable(name = "_beneficiary_biller",
+            joinColumns = @JoinColumn(name = "beneficiary_id"),
+            inverseJoinColumns = @JoinColumn(name = "biller_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"beneficiary_id", "biller_id"})
+    )
+    private Set<Biller> billers = new HashSet<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();

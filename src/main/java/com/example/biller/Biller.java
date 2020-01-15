@@ -1,12 +1,16 @@
 package com.example.biller;
 
+import com.example.beneficiary.model.Beneficiary;
 import com.example.util.enums.EnabledStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Osagie Erhabor on 14/01/2020.
@@ -41,6 +45,10 @@ public class Biller {
 
     @NotNull
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "billers", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    private Set<Beneficiary> beneficiaries = new HashSet<>();
 
 
 }
